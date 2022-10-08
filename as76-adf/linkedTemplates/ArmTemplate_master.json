@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "as76-adf"
 		},
+		"adfSQLDB_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'adfSQLDB'"
+		},
 		"as76sa_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'as76sa'"
@@ -37,6 +41,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"adfSQLDB_connectionString": {
+						"value": "[parameters('adfSQLDB_connectionString')]"
 					},
 					"as76sa_connectionString": {
 						"value": "[parameters('as76sa_connectionString')]"
