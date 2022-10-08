@@ -1,0 +1,48 @@
+{
+	"name": "ABS_CSV_SweetTreats",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "as76sa",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Chapter03"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Sales.csv",
+				"folderPath": "azure-data-factory-by-example-main/SampleData/SweetTreats/Apr-20",
+				"container": "sampledata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "SalesMonth",
+				"type": "String"
+			},
+			{
+				"name": "Retailer",
+				"type": "String"
+			},
+			{
+				"name": "Product",
+				"type": "String"
+			},
+			{
+				"name": "SalesValueUSD",
+				"type": "String"
+			},
+			{
+				"name": "UnitsSold",
+				"type": "String"
+			}
+		]
+	}
+}
