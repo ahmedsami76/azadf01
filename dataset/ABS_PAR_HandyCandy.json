@@ -1,0 +1,24 @@
+{
+	"name": "ABS_PAR_HandyCandy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "as76sa",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Chapter03"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "HandyCandy.parquet",
+				"folderPath": "datalake",
+				"container": "output"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
