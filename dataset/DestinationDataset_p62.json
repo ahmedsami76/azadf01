@@ -1,0 +1,17 @@
+{
+	"name": "DestinationDataset_p62",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "as76sa",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "sampledata"
+			}
+		}
+	}
+}
