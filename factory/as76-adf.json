@@ -1,0 +1,9 @@
+{
+	"name": "as76-adf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ee09b033-ef7c-4d79-8c2c-42ad1fc97bf0",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+	}
+}
