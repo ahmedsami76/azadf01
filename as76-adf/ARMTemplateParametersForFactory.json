@@ -10,6 +10,12 @@
 		},
 		"as76sa_connectionString": {
 			"value": ""
+		},
+		"as76akv_properties_typeProperties_baseUrl": {
+			"value": "https://as76-akv.vault.azure.net/"
+		},
+		"as76sakv_properties_typeProperties_connectionString_secretName": {
+			"value": "StorageAccountConnectionString"
 		}
 	}
 }

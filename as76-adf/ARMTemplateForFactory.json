@@ -14,6 +14,14 @@
 		"as76sa_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'as76sa'"
+		},
+		"as76akv_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://as76-akv.vault.azure.net/"
+		},
+		"as76sakv_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "StorageAccountConnectionString"
 		}
 	},
 	"variables": {
@@ -1128,6 +1136,56 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ABS_JSON_as76sakv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "as76sakv",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Container": {
+						"type": "string"
+					},
+					"Directory": {
+						"type": "string",
+						"defaultValue": "."
+					},
+					"File": {
+						"type": "string",
+						"defaultValue": "."
+					}
+				},
+				"folder": {
+					"name": "Chapter05"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Directory",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/as76sakv')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ABS_PAR_HandyCandy')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1274,6 +1332,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/as76akv')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('as76akv_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/as76sa')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1285,6 +1356,28 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/as76sakv')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "as76akv",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('as76sakv_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/as76akv')]"
+			]
 		}
 	]
 }
