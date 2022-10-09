@@ -1,5 +1,13 @@
 {
 	"name": "as76-adf",
+	"properties": {
+		"globalParameters": {
+			"EnvironmentName": {
+				"type": "string",
+				"value": "Development"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
