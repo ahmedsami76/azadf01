@@ -578,17 +578,6 @@
 									},
 									{
 										"source": {
-											"name": "PipelineRunId",
-											"type": "String"
-										},
-										"sink": {
-											"name": "PipelineRunId",
-											"type": "Guid",
-											"physicalType": "uniqueidentifier"
-										}
-									},
-									{
-										"source": {
 											"name": "SourceFileName",
 											"type": "String"
 										},
@@ -596,6 +585,17 @@
 											"name": "SourceFileName",
 											"type": "String",
 											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RunSeqNo",
+											"type": "String"
+										},
+										"sink": {
+											"name": "RunSeqNo",
+											"type": "Int32",
+											"physicalType": "int"
 										}
 									}
 								],
@@ -734,11 +734,24 @@
 								"parameters": {}
 							}
 						}
+					},
+					{
+						"name": "Set variable1",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"variables": {
+					"RunSeqNo": {
+						"type": "String",
+						"defaultValue": "-1"
+					}
 				},
 				"folder": {
 					"name": "Chapter04"
