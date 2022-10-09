@@ -32,7 +32,7 @@
 							{
 								"name": "RunSeqNo",
 								"value": {
-									"value": "@activity('Lookup RunSeqNo').output.firstRow.RunSeqNo",
+									"value": "@variables('RunSeqNo')",
 									"type": "Expression"
 								}
 							}
