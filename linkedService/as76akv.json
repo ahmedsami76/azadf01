@@ -1,0 +1,10 @@
+{
+	"name": "as76akv",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://as76-akv.vault.azure.net/"
+		}
+	}
+}
