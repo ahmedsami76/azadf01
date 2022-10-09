@@ -1,0 +1,50 @@
+{
+	"name": "exec pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Import Sweet Treats data",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ImportSTFormatFolder",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"WildCardFolderPath": "azure-data-factory-by-example-main/SampleData/SweetTreats"
+					}
+				}
+			},
+			{
+				"name": "Import Desserts4All data",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Import Sweet Treats data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ImportSTFormatFolder",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"WildCardFolderPath": "azure-data-factory-by-example-main/SampleData/Desserts4All"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Chapter05"
+		},
+		"annotations": []
+	}
+}
