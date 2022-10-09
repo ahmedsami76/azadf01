@@ -1,1 +1,10 @@
-{}
+{
+	"EnvironmentName": {
+		"type": "string",
+		"value": "Development"
+	},
+	"ResourceGroupName": {
+		"type": "string",
+		"value": "az-adf"
+	}
+}
