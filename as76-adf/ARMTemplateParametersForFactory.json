@@ -11,6 +11,9 @@
 		"as76sa_connectionString": {
 			"value": ""
 		},
+		"AnyBlobStorage_properties_typeProperties_connectionString_secretName": {
+			"value": "@linkedService().ConnectionSecret"
+		},
 		"as76akv_properties_typeProperties_baseUrl": {
 			"value": "https://as76-akv.vault.azure.net/"
 		},
