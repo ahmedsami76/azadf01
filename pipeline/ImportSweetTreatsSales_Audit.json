@@ -278,6 +278,12 @@
 				}
 			}
 		],
+		"variables": {
+			"RunSeqNo": {
+				"type": "String",
+				"defaultValue": "-1"
+			}
+		},
 		"folder": {
 			"name": "Chapter04"
 		},
