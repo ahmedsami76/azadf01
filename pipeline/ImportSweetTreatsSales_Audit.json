@@ -51,6 +51,104 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Retailer",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Retailer",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesMonth",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SalesMonth",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "Product",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Product",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Product",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ManufacturerProductCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesValueUSD",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SalesValueUSD",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
+								}
+							},
+							{
+								"source": {
+									"name": "UnitsSold",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UnitsSold",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "PipelineRunId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PipelineRunId",
+									"type": "Guid",
+									"physicalType": "uniqueidentifier"
+								}
+							},
+							{
+								"source": {
+									"name": "SourceFileName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SourceFileName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
