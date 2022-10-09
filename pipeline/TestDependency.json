@@ -39,7 +39,8 @@
 					{
 						"activity": "Set variable2",
 						"dependencyConditions": [
-							"Skipped"
+							"Skipped",
+							"Succeeded"
 						]
 					}
 				],
