@@ -243,7 +243,7 @@
 							"Comments": {
 								"type": "String",
 								"value": {
-									"value": "@concat('Pipeline ', pipeline().Pipeline, ' executed in ', pipeline().DataFactory)",
+									"value": "@concat('Pipeline ', pipeline().Pipeline, ' executed in ', pipeline().DataFactory, 'loading file ', pipeline().parameters.Directory, '/', pipeline().parameters.File)",
 									"type": "Expression"
 								}
 							},
