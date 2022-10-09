@@ -13,6 +13,63 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ABS_JSON')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AnyBlobStorage",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"ConnectionSecret": {
+							"value": "@dataset().LinkedServiceConnectionSecret",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"Container": {
+						"type": "string"
+					},
+					"Directory": {
+						"type": "string",
+						"defaultValue": "."
+					},
+					"File": {
+						"type": "string",
+						"defaultValue": "."
+					},
+					"LinkedServiceConnectionSecret": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "Chapter05"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Directory",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ABS_JSON_as76sakv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -320,6 +377,135 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ABS_JSON_as76sakv')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IngestHandyCandyMessages_copy2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "HandyCandy JSON to Parquet",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFolderPath": "azure-data-factory-by-example-main/SampleData/HandyCandy",
+									"wildcardFileName": "*.json",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "MergeFiles"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['TransactionId']"
+										},
+										"sink": {
+											"name": "TransactionId",
+											"type": "Guid"
+										}
+									},
+									{
+										"source": {
+											"path": "$['TransactionDate']"
+										},
+										"sink": {
+											"name": "TransactionDate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"path": "$['StoreId']"
+										},
+										"sink": {
+											"name": "StoreId",
+											"type": "Int16"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Items'][0]['Product']"
+										},
+										"sink": {
+											"name": "Product",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Items'][0]['Price']"
+										},
+										"sink": {
+											"name": "Price",
+											"type": "Single"
+										}
+									}
+								],
+								"collectionReference": "$['Items']"
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ABS_JSON",
+								"type": "DatasetReference",
+								"parameters": {
+									"Container": "sampledata",
+									"Directory": ".",
+									"File": ".",
+									"LinkedServiceConnectionSecret": "StorageAccountConnectionString"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ABS_PAR_HandyCandy",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Chapter05"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ABS_JSON')]"
 			]
 		}
 	]
