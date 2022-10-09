@@ -308,12 +308,11 @@
 			}
 		],
 		"parameters": {
-			"WildCardFolderPath": {
+			"Directory": {
 				"type": "string"
 			},
-			"WildCardFileName": {
-				"type": "string",
-				"defaultValue": "*.csv"
+			"File": {
+				"type": "string"
 			}
 		},
 		"variables": {
