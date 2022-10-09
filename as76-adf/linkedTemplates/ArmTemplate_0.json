@@ -1364,13 +1364,19 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ABS_JSON_as76sakv')]",
+			"name": "[concat(parameters('factoryName'), '/ABS_JSON')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "as76sakv",
-					"type": "LinkedServiceReference"
+					"referenceName": "AnyBlobStorage",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"ConnectionSecret": {
+							"value": "@dataset().LinkedServiceConnectionSecret",
+							"type": "Expression"
+						}
+					}
 				},
 				"parameters": {
 					"Container": {
@@ -1383,6 +1389,9 @@
 					"File": {
 						"type": "string",
 						"defaultValue": "."
+					},
+					"LinkedServiceConnectionSecret": {
+						"type": "string"
 					}
 				},
 				"folder": {
@@ -1410,7 +1419,7 @@
 				"schema": {}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/as76sakv')]"
+				"[concat(variables('factoryId'), '/linkedServices/AnyBlobStorage')]"
 			]
 		}
 	]
