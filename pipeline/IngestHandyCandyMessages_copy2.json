@@ -99,7 +99,7 @@
 							"Container": "sample",
 							"Directory": ".",
 							"File": ".",
-							"LinkedServiceConnectionSecret": "LinkedServiceConnectionSecret"
+							"LinkedServiceConnectionSecret": "StorageAccountConnectionString"
 						}
 					}
 				],
