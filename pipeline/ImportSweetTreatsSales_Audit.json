@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Lookup RunSeqNo",
+						"activity": "Set RunSeqNo",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -274,6 +274,26 @@
 					"dataset": {
 						"referenceName": "ASQL_dboSalesLoad",
 						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Set RunSeqNo",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Lookup RunSeqNo",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "RunSeqNo",
+					"value": {
+						"value": "@string(activity('Lookup RunSeqNo').output.firstRow.RunSeqNo)",
+						"type": "Expression"
 					}
 				}
 			}
