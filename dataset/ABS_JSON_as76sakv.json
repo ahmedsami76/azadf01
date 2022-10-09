@@ -1,0 +1,45 @@
+{
+	"name": "ABS_JSON_as76sakv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "as76sakv",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Container": {
+				"type": "string"
+			},
+			"Directory": {
+				"type": "string",
+				"defaultValue": "."
+			},
+			"File": {
+				"type": "string",
+				"defaultValue": "."
+			}
+		},
+		"folder": {
+			"name": "Chapter05"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().File",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Directory",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().Container",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	}
+}
