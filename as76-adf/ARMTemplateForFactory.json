@@ -219,14 +219,6 @@
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
-									"wildcardFolderPath": {
-										"value": "@pipeline().parameters.WildCardFolderPath",
-										"type": "Expression"
-									},
-									"wildcardFileName": {
-										"value": "@pipeline().parameters.WildCardFileName",
-										"type": "Expression"
-									},
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -338,9 +330,19 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ABS_CSV_SweetTreats",
+								"referenceName": "ABS_CSV",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"Container": "sampledata",
+									"Folder": {
+										"value": "@pipeline().parameters.Directory",
+										"type": "Expression"
+									},
+									"File": {
+										"value": "@pipeline().parameters.File",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
@@ -439,7 +441,7 @@
 									"Comments": {
 										"type": "String",
 										"value": {
-											"value": "@concat('Pipeline ', pipeline().Pipeline, ' executed in ', pipeline().DataFactory)",
+											"value": "@concat('Pipeline ', pipeline().Pipeline, ' executed in ', pipeline().DataFactory, 'loading file ', pipeline().parameters.Directory, '/', pipeline().parameters.File)",
 											"type": "Expression"
 										}
 									},
@@ -494,12 +496,11 @@
 					"cancelAfter": {}
 				},
 				"parameters": {
-					"WildCardFolderPath": {
+					"Directory": {
 						"type": "string"
 					},
-					"WildCardFileName": {
-						"type": "string",
-						"defaultValue": "*.csv"
+					"File": {
+						"type": "string"
 					}
 				},
 				"variables": {
@@ -514,7 +515,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ABS_CSV_SweetTreats')]",
+				"[concat(variables('factoryId'), '/datasets/ABS_CSV')]",
 				"[concat(variables('factoryId'), '/datasets/ASQL_dboSalesLoad')]",
 				"[concat(variables('factoryId'), '/linkedServices/adfSQLDB')]"
 			]
@@ -2056,6 +2057,63 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/ImportSTFormatFolder')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ABS_CSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AnyBlobStorage",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"ConnectionSecret": "StorageAccountConnectionString"
+					}
+				},
+				"parameters": {
+					"Container": {
+						"type": "string"
+					},
+					"Folder": {
+						"type": "string",
+						"defaultValue": "."
+					},
+					"File": {
+						"type": "string",
+						"defaultValue": "."
+					}
+				},
+				"folder": {
+					"name": "Chapter05"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AnyBlobStorage')]"
 			]
 		},
 		{
