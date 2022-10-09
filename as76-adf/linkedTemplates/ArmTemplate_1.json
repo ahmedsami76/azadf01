@@ -507,6 +507,63 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ABS_JSON')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/exec pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Import Sweet Treats data",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ImportSTFormatFolder",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"WildCardFolderPath": "azure-data-factory-by-example-main/SampleData/SweetTreats"
+							}
+						}
+					},
+					{
+						"name": "Import Desserts4All data",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Import Sweet Treats data",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ImportSTFormatFolder",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"WildCardFolderPath": "azure-data-factory-by-example-main/SampleData/Desserts4All"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Chapter05"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
 		}
 	]
 }
