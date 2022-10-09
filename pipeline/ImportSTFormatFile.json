@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "JsonSource",
+						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
 								"name": "SourceFileName",
@@ -43,7 +43,7 @@
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "JsonReadSettings"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -60,51 +60,63 @@
 							{
 								"source": {
 									"name": "Retailer",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Retailer",
-									"type": "String"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
 									"name": "SalesMonth",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "SalesMonth",
-									"type": "DateTime"
+									"type": "DateTime",
+									"physicalType": "date"
 								}
 							},
 							{
 								"source": {
 									"name": "Product",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Product",
-									"type": "String"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
 									"name": "SalesValueUSD",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "SalesValueUSD",
-									"type": "Decimal"
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 18
 								}
 							},
 							{
 								"source": {
 									"name": "UnitsSold",
-									"type": "String"
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "UnitsSold",
-									"type": "Int32"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
@@ -114,7 +126,8 @@
 								},
 								"sink": {
 									"name": "SourceFileName",
-									"type": "String"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -124,27 +137,32 @@
 								},
 								"sink": {
 									"name": "RunSeqNo",
-									"type": "Int32"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							}
-						]
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "ABS_JSON",
+						"referenceName": "ABS_CSV",
 						"type": "DatasetReference",
 						"parameters": {
 							"Container": "sampledata",
-							"Directory": {
+							"Folder": {
 								"value": "@pipeline().parameters.Directory",
 								"type": "Expression"
 							},
 							"File": {
 								"value": "@pipeline().parameters.File",
 								"type": "Expression"
-							},
-							"LinkedServiceConnectionSecret": "StorageAccountConnectionString"
+							}
 						}
 					}
 				],
