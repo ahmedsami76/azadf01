@@ -96,6 +96,7 @@
 						"referenceName": "ABS_JSON_as76sakv",
 						"type": "DatasetReference",
 						"parameters": {
+							"Container": "sampledata",
 							"Directory": ".",
 							"File": "."
 						}
