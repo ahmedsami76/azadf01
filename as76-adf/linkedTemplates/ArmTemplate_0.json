@@ -843,7 +843,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Lookup RunSeqNo",
+								"activity": "Set RunSeqNo",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -868,7 +868,7 @@
 									{
 										"name": "RunSeqNo",
 										"value": {
-											"value": "@activity('Lookup RunSeqNo').output.firstRow.RunSeqNo",
+											"value": "@variables('RunSeqNo')",
 											"type": "Expression"
 										}
 									}
@@ -1054,7 +1054,7 @@
 								},
 								"RunSeqNo": {
 									"value": {
-										"value": "@activity('Lookup RunSeqNo').output.firstRow.RunSeqNo",
+										"value": "@variables('RunSeqNo')",
 										"type": "Expression"
 									},
 									"type": "Int32"
@@ -1117,11 +1117,24 @@
 						}
 					},
 					{
-						"name": "Set variable1",
+						"name": "Set RunSeqNo",
 						"type": "SetVariable",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Lookup RunSeqNo",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"userProperties": [],
-						"typeProperties": {}
+						"typeProperties": {
+							"variableName": "RunSeqNo",
+							"value": {
+								"value": "@string(activity('Lookup RunSeqNo').output.firstRow.RunSeqNo)",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"policy": {
