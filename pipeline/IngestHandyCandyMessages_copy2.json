@@ -96,7 +96,7 @@
 						"referenceName": "ABS_JSON",
 						"type": "DatasetReference",
 						"parameters": {
-							"Container": "sample",
+							"Container": "sampledata",
 							"Directory": ".",
 							"File": ".",
 							"LinkedServiceConnectionSecret": "StorageAccountConnectionString"
