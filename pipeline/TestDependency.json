@@ -20,9 +20,15 @@
 				"type": "SetVariable",
 				"dependsOn": [
 					{
+						"activity": "Set variable4",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
 						"activity": "Set variable1",
 						"dependencyConditions": [
-							"Failed"
+							"Succeeded"
 						]
 					}
 				],
@@ -48,6 +54,16 @@
 				"typeProperties": {
 					"variableName": "testPipelineVar",
 					"value": "A simple string 3"
+				}
+			},
+			{
+				"name": "Set variable4",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "testPipelineVar",
+					"value": "'A simple string 4'"
 				}
 			}
 		],
